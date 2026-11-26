@@ -14,12 +14,20 @@
       document.querySelectorAll('.menu-item.open').forEach(function (o) { if (o !== item) o.classList.remove('open'); });
     });
   });
+  document.querySelectorAll('.dd > .btn').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var open = btn.parentNode.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open);
+    });
+  });
   document.addEventListener('click', function (e) {
+    if (!e.target.closest('.dd')) document.querySelectorAll('.dd.open').forEach(function (o) { o.classList.remove('open'); });
     if (!e.target.closest('.menu-item')) document.querySelectorAll('.menu-item.open').forEach(function (o) { o.classList.remove('open'); });
   });
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
-    document.querySelectorAll('.menu-item.open').forEach(function (o) { o.classList.remove('open'); });
+    document.querySelectorAll('.menu-item.open, .dd.open').forEach(function (o) { o.classList.remove('open'); });
     closeZoom();
   });
   var burger = document.querySelector('.burger');
