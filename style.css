@@ -133,13 +133,7 @@ p { margin: 0 0 12px; }
 .steps span { display: block; color: var(--mute); font-size: 14.5px; line-height: 1.5; margin-top: 2px; }
 
 /* horizontal bars (animate in) */
-.bars { display: grid; gap: 12px; container-type: inline-size; }
-/* narrow charts (phones, small cards): label on its own line, then the bar and its value */
-@container (max-width: 380px) {
-  .bar, .bars.big .bar { grid-template-columns: minmax(0, 1fr) auto; row-gap: 5px; column-gap: 10px; }
-  .bar .l { grid-column: 1 / -1; line-height: 1.25; }
-  .bar .sub { grid-column: 1 / -1; margin-top: -2px; }
-}
+.bars { display: grid; gap: 12px; }
 .seg100 { height: max(calc(var(--p) * 2.6px), 24px); display: flex; align-items: center; justify-content: center; text-align: center;
   font-size: 13px; line-height: 1.15; padding: 0 4px; border-top: 2px solid #fff; }
 .ladder { display: flex !important; flex-direction: column; align-items: stretch !important; }
@@ -229,12 +223,12 @@ figure { margin: 0; }
 .down { text-align: center; color: var(--taupe); font-size: 18px; line-height: 1; }
 
 /* project cards (overview + hub) */
-.pcards { display: grid; gap: 12px; container-type: inline-size; }
-@container (max-width: 560px) {
-  .pcard { grid-template-columns: 36px minmax(0, 1fr) 20px; row-gap: 2px; }
-  .pcard .n { grid-row: 1 / 3; }
-  .pcard b, .pcard > span:not(.n):not(.lg) { grid-column: 2; }
-  .pcard i { grid-column: 3; grid-row: 1 / 3; }
+.pcards { display: grid; gap: 12px; }
+@media (max-width: 1180px) {
+  .split .pcard { grid-template-columns: 36px minmax(0, 1fr) 20px; row-gap: 2px; }
+  .split .pcard .n { grid-row: 1 / 3; }
+  .split .pcard b, .split .pcard > span:not(.n):not(.lg) { grid-column: 2; }
+  .split .pcard i { grid-column: 3; grid-row: 1 / 3; }
 }
 .pcard { display: grid; grid-template-columns: 48px minmax(150px, 210px) minmax(0, 1fr) 20px; align-items: center; gap: 12px; padding: 18px 22px; background: var(--surface);
   border: 1px solid var(--line); border-radius: var(--r); text-decoration: none; transition: border-color .15s, transform .15s, box-shadow .15s; }
@@ -311,7 +305,7 @@ figure { margin: 0; }
 .panel-g { font: 600 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--mute); padding: 10px 12px 4px; }
 .panel-g:first-child { padding-top: 4px; }
 .deg { display: block; font-size: 16.5px; font-weight: 600; color: var(--wine); margin-top: 3px; }
-.gpa { display: block; font-size: 14.5px; color: var(--mute); margin-top: 2px; }
+.gpa { display: block; font-size: 15px; font-weight: 600; color: var(--ink); margin-top: 3px; }
 
 /* ---------- responsive: iPads keep the desktop columns; phones swipe through side-by-side columns ---------- */
 .swipe-hint { display: none; }
@@ -359,7 +353,9 @@ figure { margin: 0; }
   .tbl { min-width: 580px; font-size: 13.5px; }
   .flow { overflow-x: auto; scrollbar-width: none; margin-left: -16px; margin-right: -16px; padding: 0 16px; }
   .flow::-webkit-scrollbar { display: none; }
-  .flow li { flex: 0 0 auto; min-width: 136px; font-size: 13.5px; padding: 12px 12px 12px 24px; }
+  .flow li { flex: 1 1 0; min-width: 96px; font-size: 13.5px; padding: 12px 10px 12px 22px; }
+  .flow li:first-child { padding-left: 12px; }
+  .flow li:nth-last-child(n+4), .flow li:nth-last-child(n+4) ~ li { min-width: 132px; }
   .find-row { grid-template-columns: minmax(0, 1fr) 16px minmax(0, 1fr) !important; }
   .find-row > :first-child { grid-column: 1 / -1; }
   .pcard { grid-template-columns: 36px minmax(0, 1fr) 20px; row-gap: 2px; }
@@ -381,7 +377,14 @@ figure { margin: 0; }
   .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .kpis > .kpi:first-child:nth-last-child(odd) { grid-column: 1 / -1; }
   .habit p { font-size: 17px; }
-  .bar { font-size: 14px; }
+  .bar, .bars.big .bar { display: flex; flex-wrap: wrap; align-items: center; column-gap: 10px; row-gap: 6px; font-size: 14px; }
+  .bar .l { flex: 0 0 100%; line-height: 1.25; }
+  .bar .t { flex: 1 1 0%; min-width: 0; }
+  .bar .v { flex: 0 0 auto; }
+  .bar .sub { flex: 0 0 100%; margin-top: -2px; }
+  .bars.big .bar { font-size: 15.5px; }
+  .bars.big .v { font-size: 17px; }
+  .bars.big .t { height: 24px; }
   .card { padding: 18px; }
   .kpi b { font-size: 26px; }
   .proj-head { flex-wrap: wrap; }
